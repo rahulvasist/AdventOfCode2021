@@ -1,5 +1,5 @@
 use std::fs;
-use std::{cmp, collections::HashMap, error};
+use std::{collections::HashMap, error};
 
 fn descendants(timer: u64, tick: u64, last_day: u64, cache: &mut HashMap<(u64, u64), u64>) -> u64 {
     if tick + timer > last_day {
