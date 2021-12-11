@@ -73,7 +73,7 @@ fn part2(s: &str) -> usize {
     let scores = s
         .lines()
         .filter(|l| corrupted_line(l) == 0)
-        .map(|l| incomplete_line(l))
+        .map(incomplete_line)
         .sorted()
         .collect_vec();
     scores[scores.len() / 2]
