@@ -81,7 +81,7 @@ impl Bingo {
             .split(',')
             .map(|x| x.parse().unwrap())
             .collect();
-        let boards = split.enumerate().map(|(i, s)| Board::new(&s, i)).collect();
+        let boards = split.enumerate().map(|(i, s)| Board::new(s, i)).collect();
         Self { numbers, boards }
     }
 }
@@ -94,7 +94,7 @@ fn part1(mut bingo: Bingo) -> usize {
             }
         }
     }
-    return 0;
+    0
 }
 
 fn part2(mut bingo: Bingo) -> usize {
@@ -103,7 +103,7 @@ fn part2(mut bingo: Bingo) -> usize {
         .iter()
         .map(|b| b.board_num.to_owned())
         .collect();
-    for (i, &n) in bingo.numbers.iter().to_owned().enumerate() {
+    for (_i, &n) in bingo.numbers.iter().to_owned().enumerate() {
         for b in bingo.boards.iter_mut() {
             if !remaining_boards.contains(&b.board_num) {
                 continue;
@@ -151,23 +151,23 @@ mod tests {
 21  9 14 16  7
  6 10  3 18  5
  1 12 20 15 19";
-        println!("{:?}", Board::new(&s, 0));
+        println!("{:?}", Board::new(s, 0));
     }
 
     #[test]
     fn test_parse() {
-        println!("{:?}", Bingo::new(&TEST_INPUT));
+        println!("{:?}", Bingo::new(TEST_INPUT));
     }
 
     #[test]
     fn test_part1() {
-        let bingo = Bingo::new(&TEST_INPUT);
+        let bingo = Bingo::new(TEST_INPUT);
         assert_eq!(part1(bingo), 4512);
     }
 
     #[test]
     fn test_part2() {
-        let bingo = Bingo::new(&TEST_INPUT);
+        let bingo = Bingo::new(TEST_INPUT);
         assert_eq!(part2(bingo), 1924);
     }
 }

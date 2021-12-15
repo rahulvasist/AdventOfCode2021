@@ -79,11 +79,11 @@ mod tests {
 
     #[test]
     fn test2() {
-        assert_eq!(150, part1(&TEST_INPUT));
+        assert_eq!(150, part1(TEST_INPUT));
     }
 
     #[test]
     fn test3() {
-        assert_eq!(900, part2(&TEST_INPUT));
+        assert_eq!(900, part2(TEST_INPUT));
     }
 }

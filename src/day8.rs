@@ -77,9 +77,7 @@ fn solve_input(entry: &Entry) -> HashMap<u8, u8> {
     let six = entry
         .inputs
         .iter()
-        .filter(|seg| seg.len() == 6)
-        .filter(|seg| seg.intersection(known_nums[7].unwrap()).count() == 2)
-        .next()
+        .filter(|seg| seg.len() == 6).find(|seg| seg.intersection(known_nums[7].unwrap()).count() == 2)
         .unwrap();
     known_nums[6] = Some(six);
     let mut inter: HashSet<u8> = six.intersection(known_nums[7].unwrap()).cloned().collect();
@@ -99,31 +97,23 @@ fn solve_input(entry: &Entry) -> HashMap<u8, u8> {
     let three = entry
         .inputs
         .iter()
-        .filter(|seg| seg.len() == 5)
-        .filter(|seg| seg.intersection(known_nums[7].unwrap()).count() == 3)
-        .next()
+        .filter(|seg| seg.len() == 5).find(|seg| seg.intersection(known_nums[7].unwrap()).count() == 3)
         .unwrap();
     known_nums[3] = Some(three);
     let d = three
         .intersection(known_nums[4].unwrap())
-        .cloned()
-        .filter(|s| *s != a && *s != c && *s != f)
-        .next()
+        .cloned().find(|s| *s != a && *s != c && *s != f)
         .unwrap();
     mappings.insert(d, b'd');
     let g = three
         .iter()
-        .cloned()
-        .filter(|s| *s != a && *s != c && *s != f && *s != d)
-        .next()
+        .cloned().find(|s| *s != a && *s != c && *s != f && *s != d)
         .unwrap();
     mappings.insert(g, b'g');
     let b = known_nums[4]
         .unwrap()
         .iter()
-        .cloned()
-        .filter(|s| *s != c && *s != d && *s != f)
-        .next()
+        .cloned().find(|s| *s != c && *s != d && *s != f)
         .unwrap();
     mappings.insert(b, b'b');
 
@@ -131,9 +121,7 @@ fn solve_input(entry: &Entry) -> HashMap<u8, u8> {
     let e = known_nums[8]
         .unwrap()
         .iter()
-        .cloned()
-        .filter(|s| *s != a && *s != b && *s != c && *s != d && *s != f && *s != g)
-        .next()
+        .cloned().find(|s| *s != a && *s != b && *s != c && *s != d && *s != f && *s != g)
         .unwrap();
     mappings.insert(e, b'e');
     mappings
@@ -154,9 +142,9 @@ fn segment_to_digit(segment: &Segment, mappings: &HashMap<u8, u8>) -> usize {
     ]);
     let key = segment
         .iter()
-        .map(|c| mappings.get(c).unwrap().clone())
+        .map(|c| *mappings.get(c).unwrap())
         .collect();
-    let rv = segment_to_num_map.get(&key).unwrap().clone();
+    let rv = *segment_to_num_map.get(&key).unwrap();
     rv
 }
 
@@ -164,7 +152,7 @@ fn part2(entries: Vec<Entry>) -> usize {
     entries
         .iter()
         .map(|entry| {
-            let mappings = solve_input(&entry);
+            let mappings = solve_input(entry);
             let num = entry.outputs.iter().fold(0, |acc, segment| {
                 acc * 10 + segment_to_digit(segment, &mappings)
             });
@@ -196,12 +184,12 @@ gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
 
     #[test]
     fn test_part1() {
-        assert_eq!(part1(parse(&TEST_INPUT)), 26);
+        assert_eq!(part1(parse(TEST_INPUT)), 26);
     }
 
     #[test]
     fn test_solve_input() {
-        let entries = parse(&TEST_INPUT);
+        let entries = parse(TEST_INPUT);
         solve_input(&entries[0]);
     }
 
@@ -212,7 +200,7 @@ gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
         );
         assert_eq!(part2(entries), 5353);
 
-        let entries = parse(&TEST_INPUT);
+        let entries = parse(TEST_INPUT);
         assert_eq!(part2(entries), 61229);
     }
 }

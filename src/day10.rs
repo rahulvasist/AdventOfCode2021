@@ -58,7 +58,7 @@ fn incomplete_line(s: &str) -> usize {
         .rev()
         .map(|c| {
             closing_bracket
-                .get(&c)
+                .get(c)
                 .map(|b| score.get(b).unwrap())
                 .unwrap()
         })
@@ -97,30 +97,30 @@ mod tests {
     #[test]
     fn test_corrupted_line() {
         let s = "{([(<{}[<>[]}>{[]{[(<()>";
-        assert_eq!(corrupted_line(&s), 1197);
+        assert_eq!(corrupted_line(s), 1197);
         let s = "[[<[([]))<([[{}[[()]]]";
-        assert_eq!(corrupted_line(&s), 3);
+        assert_eq!(corrupted_line(s), 3);
         let s = "[{[{({}]{}}([{[{{{}}([]";
-        assert_eq!(corrupted_line(&s), 57);
+        assert_eq!(corrupted_line(s), 57);
         let s = "[<(<(<(<{}))><([]([]()";
-        assert_eq!(corrupted_line(&s), 3);
+        assert_eq!(corrupted_line(s), 3);
         let s = "<{([([[(<>()){}]>(<<{{";
-        assert_eq!(corrupted_line(&s), 25137);
+        assert_eq!(corrupted_line(s), 25137);
     }
 
     #[test]
     fn test_part1() {
-        assert_eq!(part1(&TEST_INPUT), 26397);
+        assert_eq!(part1(TEST_INPUT), 26397);
     }
 
     #[test]
     fn test_incomplete_line() {
         let s = "[({(<(())[]>[[{[]{<()<>>";
-        assert_eq!(incomplete_line(&s), 288957);
+        assert_eq!(incomplete_line(s), 288957);
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(part2(&TEST_INPUT), 288957);
+        assert_eq!(part2(TEST_INPUT), 288957);
     }
 }

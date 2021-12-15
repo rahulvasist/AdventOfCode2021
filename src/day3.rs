@@ -10,7 +10,7 @@ fn parse(s: &str) -> Report {
         .lines()
         .map(|l| {
             l.as_bytes()
-                .into_iter()
+                .iter()
                 .map(|&b| if b == b'0' { 0 } else { 1 })
                 .collect()
         })
@@ -34,7 +34,7 @@ fn get_counters(r: &Report) -> HashMap<(u64, u8), u64> {
 }
 
 fn part1(r: &Report) -> u64 {
-    let counter = get_counters(&r);
+    let counter = get_counters(r);
     let num_bits = r.iter().next().unwrap().len();
     let gamma = (0..num_bits)
         .into_iter()
@@ -60,11 +60,11 @@ fn part1(r: &Report) -> u64 {
 }
 
 fn vec_to_num(n: &Number) -> u64 {
-    n.into_iter().fold(0, |acc, &x| (acc << 1 | x as u64))
+    n.iter().fold(0, |acc, &x| (acc << 1 | x as u64))
 }
 
 fn oxygen(mut r: Report) -> u64 {
-    let mut bit = 0 as u64;
+    let mut bit = 0_u64;
     while r.len() != 1 {
         let counter = get_counters(&r);
         let val = if counter.get(&(bit, 0)) > counter.get(&(bit, 1)) {
@@ -79,7 +79,7 @@ fn oxygen(mut r: Report) -> u64 {
 }
 
 fn co2(mut r: Report) -> u64 {
-    let mut bit = 0 as u64;
+    let mut bit = 0_u64;
     while r.len() != 1 {
         let counter = get_counters(&r);
         let val = if counter.get(&(bit, 1)) < counter.get(&(bit, 0)) {
@@ -123,17 +123,17 @@ mod tests {
     use super::*;
     #[test]
     fn test_parse() {
-        let p = parse(&TEST_INPUT);
+        let _p = parse(TEST_INPUT);
         // println!("{:?}", p);
     }
 
     #[test]
     fn test_part1() {
-        assert_eq!(part1(&parse(&TEST_INPUT)), 198);
+        assert_eq!(part1(&parse(TEST_INPUT)), 198);
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(part2(&parse(&TEST_INPUT)), 230);
+        assert_eq!(part2(&parse(TEST_INPUT)), 230);
     }
 }

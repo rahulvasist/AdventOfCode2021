@@ -65,7 +65,7 @@ mod tests {
     #[test]
     fn test_parse() {
         let initial = vec![3, 4, 3, 1, 2];
-        assert_eq!(parse(&TEST_INPUT), initial);
+        assert_eq!(parse(TEST_INPUT), initial);
     }
 }
 

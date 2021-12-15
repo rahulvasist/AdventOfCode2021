@@ -52,7 +52,7 @@ impl Display for State {
             for c in line.iter() {
                 write!(f, "{}", c)?;
             }
-            write!(f, "\n")?;
+            writeln!(f)?;
         }
         Ok(())
     }
@@ -63,7 +63,7 @@ fn step(state: &mut State) -> usize {
         .cartesian_product(0..state.octo[0].len())
         .collect();
     let mut to_flash = HashSet::new();
-    while to_process.len() != 0 {
+    while !to_process.is_empty() {
         let (i, j) = to_process.pop_front().unwrap();
         state.octo[i][j] += 1;
         if state.octo[i][j] == 10 {
@@ -114,12 +114,12 @@ mod tests {
 
     #[test]
     fn test_parse() {
-        println!("{}", State::new(&TEST_INPUT));
+        println!("{}", State::new(TEST_INPUT));
     }
 
     #[test]
     fn test_neighbors() {
-        let state = State::new(&TEST_INPUT);
+        let state = State::new(TEST_INPUT);
         println!("{:?}", state.neighbors(0, 0));
         println!("{:?}", state.neighbors(5, 5));
         println!("{:?}", state.neighbors(5, 9));
@@ -132,20 +132,20 @@ mod tests {
 19191
 19991
 11111";
-        let mut state = State::new(&s);
+        let mut state = State::new(s);
         step(&mut state);
         step(&mut state);
     }
 
     #[test]
     fn test_part1() {
-        let state = State::new(&TEST_INPUT);
+        let state = State::new(TEST_INPUT);
         assert_eq!(1656, part1(state));
     }
 
     #[test]
     fn test_part2() {
-        let state = State::new(&TEST_INPUT);
+        let state = State::new(TEST_INPUT);
         assert_eq!(195, part2(state));
     }
 }

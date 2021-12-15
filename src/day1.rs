@@ -4,7 +4,7 @@ use std::io::Error;
 
 fn part1(v: &Vec<i64>) -> i64 {
     let ans: i64 = v
-        .into_iter()
+        .iter()
         .tuple_windows::<(_, _)>()
         .fold(0, |acc, (x, y)| if y > x { acc + 1 } else { acc });
     ans
@@ -12,7 +12,7 @@ fn part1(v: &Vec<i64>) -> i64 {
 
 fn part2(v: &Vec<i64>) -> i64 {
     let ans: i64 = v
-        .into_iter()
+        .iter()
         .tuple_windows::<(_, _, _)>()
         .map(|(x, y, z)| x + y + z)
         .tuple_windows::<(_, _)>()

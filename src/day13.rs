@@ -49,8 +49,8 @@ mod day13 {
         let dots = dot_map
             .iter()
             .filter(|(x, y)| match fold {
-                Fold::X(val) => x > &val,
-                Fold::Y(val) => y > &val,
+                Fold::X(val) => x > val,
+                Fold::Y(val) => y > val,
             })
             .cloned()
             .collect_vec();
@@ -73,7 +73,7 @@ mod day13 {
     pub fn part_2(input: &Input) -> usize {
         let mut dot_map = input.dots.iter().cloned().collect();
         for f in &input.folds {
-            fold(&f, &mut dot_map);
+            fold(f, &mut dot_map);
         }
         let max_col = dot_map.iter().map(|&(x, _)| x).max().unwrap();
         let max_row = dot_map.iter().map(|&(_, y)| y).max().unwrap();
@@ -85,7 +85,7 @@ mod day13 {
                     print!(" ");
                 }
             }
-            print!("\n");
+            println!();
         }
         0
     }
@@ -120,12 +120,12 @@ fold along x=5";
     #[test]
     #[ignore]
     fn test_generator() {
-        println!("{:?}", generator(&TEST_INPUT));
+        println!("{:?}", generator(TEST_INPUT));
     }
 
     #[test]
     fn test_part_1() {
-        let input = generator(&TEST_INPUT);
+        let input = generator(TEST_INPUT);
         assert_eq!(17, part_1(&input));
     }
 }

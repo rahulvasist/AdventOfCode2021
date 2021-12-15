@@ -144,12 +144,12 @@ b-end";
 
         #[test]
         fn test_parse() {
-            dbg!(CaveSystem::new(&TEST_INPUT));
+            dbg!(CaveSystem::new(TEST_INPUT));
         }
 
         #[test]
         fn test_part1() {
-            assert_eq!(part_1(&CaveSystem::new(&TEST_INPUT)), 10);
+            assert_eq!(part_1(&CaveSystem::new(TEST_INPUT)), 10);
         }
 
         #[test]
@@ -164,12 +164,12 @@ HN-end
 kj-sa
 kj-HN
 kj-dc";
-            assert_eq!(part_1(&CaveSystem::new(&s)), 19);
+            assert_eq!(part_1(&CaveSystem::new(s)), 19);
         }
 
         #[test]
         fn test_part2() {
-            assert_eq!(part_2(&CaveSystem::new(&TEST_INPUT)), 36);
+            assert_eq!(part_2(&CaveSystem::new(TEST_INPUT)), 36);
         }
 
         #[test]
@@ -178,7 +178,7 @@ kj-dc";
 A-b
 b-c
 c-end";
-            assert_eq!(part_2(&CaveSystem::new(&s)), 2);
+            assert_eq!(part_2(&CaveSystem::new(s)), 2);
         }
     }
 }

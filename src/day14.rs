@@ -26,10 +26,10 @@ mod day14 {
                 // dbg!(tmp);
                 (
                     (
-                        (tmp[0].as_bytes()[0]).clone(),
-                        (tmp[0].as_bytes()[1]).clone(),
+                        (tmp[0].as_bytes()[0]),
+                        (tmp[0].as_bytes()[1]),
                     ),
-                    (tmp[1].bytes().next().unwrap()).clone(),
+                    (tmp[1].bytes().next().unwrap()),
                 )
             })
             .collect();
@@ -74,7 +74,7 @@ mod day14 {
                     (acc_k, acc_v)
                 }
             });
-        return max_val.1 - min_val.1;
+        max_val.1 - min_val.1
     }
 
     fn merge_map(
@@ -119,7 +119,7 @@ mod day14 {
         let right_map = recurse((val, pair.1), rules, current_step + 1, target_step, cache);
         let rv = merge_map(left_map, right_map);
         cache.insert((pair.0, pair.1, current_step), rv.clone());
-        return rv;
+        rv
     }
 
     fn using_dfs(input: &Input, target_step: usize) -> usize {
@@ -182,12 +182,12 @@ CN -> C";
     #[test]
     #[ignore]
     fn test_generator() {
-        println!("{:?}", generator(&TEST_INPUT));
+        println!("{:?}", generator(TEST_INPUT));
     }
 
     #[test]
     fn test_part_1() {
-        let input = generator(&TEST_INPUT);
+        let input = generator(TEST_INPUT);
         assert_eq!(1588, part_1(&input));
     }
 }

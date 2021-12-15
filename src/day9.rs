@@ -96,7 +96,7 @@ fn part2(input: Vec<Vec<u32>>) -> u32 {
             }
         }
     }
-    s.sort();
+    s.sort_unstable();
     s.reverse();
     s.iter().take(3).product()
 }
@@ -113,31 +113,31 @@ mod tests {
 
     #[test]
     fn test_parse() {
-        println!("{:?}", parse(&TEST_INPUT));
+        println!("{:?}", parse(TEST_INPUT));
     }
 
     #[test]
     fn test_part1() {
-        assert_eq!(part1(parse(&TEST_INPUT)), 15);
+        assert_eq!(part1(parse(TEST_INPUT)), 15);
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(part2(parse(&TEST_INPUT)), 1134);
+        assert_eq!(part2(parse(TEST_INPUT)), 1134);
     }
 
     #[test]
     fn test_basin_size() {
         assert_eq!(
-            basin_size(&parse(&TEST_INPUT), 0, 1, &mut HashSet::new()),
+            basin_size(&parse(TEST_INPUT), 0, 1, &mut HashSet::new()),
             3
         );
         assert_eq!(
-            basin_size(&parse(&TEST_INPUT), 0, 9, &mut HashSet::new()),
+            basin_size(&parse(TEST_INPUT), 0, 9, &mut HashSet::new()),
             9
         );
         assert_eq!(
-            basin_size(&parse(&TEST_INPUT), 2, 2, &mut HashSet::new()),
+            basin_size(&parse(TEST_INPUT), 2, 2, &mut HashSet::new()),
             14
         );
     }

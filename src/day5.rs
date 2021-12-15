@@ -31,7 +31,7 @@ fn on_ls(ls: LS, p: Point) -> bool {
         // let c: isize = ls.0 .1 - slope * ls.0 .0;
         // return within_range && (p.1 == (slope * p.0 + c));
     }
-    return false;
+    false
 }
 
 fn on_ls2(ls: LS, p: Point) -> bool {
@@ -41,11 +41,11 @@ fn on_ls2(ls: LS, p: Point) -> bool {
     let within_range = x_in_range && y_in_range;
     //dbg!(ls, p, x_in_range, y_in_range, within_range);
     if ls.0 .0 == ls.1 .0 {
-        return within_range;
+        within_range
     } else {
         let slope: isize = (ls.1 .1 - ls.0 .1) / (ls.1 .0 - ls.0 .0);
         let c: isize = ls.0 .1 - slope * ls.0 .0;
-        return within_range && (p.1 == (slope * p.0 + c));
+        within_range && (p.1 == (slope * p.0 + c))
     }
 }
 
@@ -54,7 +54,7 @@ fn max3(a: isize, b: isize, c: isize) -> isize {
 }
 
 fn parse(s: &str) -> Vec<LS> {
-    s.lines().map(|s| line_parser::ls(&s).unwrap()).collect()
+    s.lines().map(|s| line_parser::ls(s).unwrap()).collect()
 }
 
 fn part1(ls: Vec<LS>) -> usize {
@@ -68,12 +68,10 @@ fn part1(ls: Vec<LS>) -> usize {
     for i in 0..=max_x {
         for j in 0..=max_y {
             for &line_seg in ls.iter() {
-                if line_seg.0 .0 == line_seg.1 .0 || line_seg.0 .1 == line_seg.1 .1 {
-                    if on_ls(line_seg, (i, j)) {
-                        let cur_score = point_score.entry((i, j)).or_insert(0);
-                        *cur_score += 1;
-                        //dbg!(i, j, line_seg, *cur_score);
-                    }
+                if (line_seg.0 .0 == line_seg.1 .0 || line_seg.0 .1 == line_seg.1 .1) && on_ls(line_seg, (i, j)) {
+                    let cur_score = point_score.entry((i, j)).or_insert(0);
+                    *cur_score += 1;
+                    //dbg!(i, j, line_seg, *cur_score);
                 }
             }
         }
@@ -144,13 +142,13 @@ mod tests {
     #[test]
     fn test_line_parse() {
         let s = "0,9 -> 5,9";
-        assert_eq!(line_parser::ls(&s), Ok(((0, 9), (5, 9))));
+        assert_eq!(line_parser::ls(s), Ok(((0, 9), (5, 9))));
     }
 
     #[test]
     fn test_parse() {
         let s = TEST_INPUT;
-        let rs = parse(&s);
+        let rs = parse(s);
         println!("{:?}", rs);
     }
 
@@ -173,12 +171,12 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        assert_eq!(part1(parse(&TEST_INPUT)), 5);
+        assert_eq!(part1(parse(TEST_INPUT)), 5);
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(part2(parse(&TEST_INPUT)), 12);
+        assert_eq!(part2(parse(TEST_INPUT)), 12);
     }
 }
 
