@@ -10,6 +10,7 @@ edition = "2021"
 itertools = "0.10"
 peg = "0.7"
 aoc-main = { version = "0.3.0", features = ["bench"] }
+pathfinding = "0.1"
 
 [[bin]]
 name = "day1"
@@ -62,3 +63,7 @@ path = "src/day13.rs"
 [[bin]]
 name = "day14"
 path = "src/day14.rs"
+
+[[bin]]
+name = "day15"
+path = "src/day15.rs"
