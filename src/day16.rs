@@ -4,8 +4,6 @@ aoc_main::main! {
 }
 
 mod day16 {
-    use itertools::Itertools;
-
     pub struct Packet<'a> {
         data: &'a [u8],
         cursor: usize,
@@ -58,20 +56,17 @@ mod day16 {
     const TYPE_ID_LITERAL: u32 = 4;
 
     pub fn parse_packet(p: &mut Packet) -> (usize, usize) {
-        // let mut p = Packet::new(data);
-
-        println!("********* Start *********************");
         let mut version_sum: usize = 0;
-        let version = dbg!(p.get_bits(3)) as usize;
-        let type_id = dbg!(p.get_bits(3));
+        let version = p.get_bits(3) as usize;
+        let type_id = p.get_bits(3);
         version_sum += version;
 
         let value: usize = match type_id {
             TYPE_ID_LITERAL => {
                 let mut n = 0;
                 loop {
-                    let last_num = dbg!(p.get_bits(1) == 0);
-                    let number = dbg!(p.get_bits(4)) as usize;
+                    let last_num = p.get_bits(1) == 0;
+                    let number = p.get_bits(4) as usize;
                     n = (n << 4) | number;
 
                     if last_num {
@@ -81,23 +76,23 @@ mod day16 {
                 n
             }
             _ => {
-                let len_type_id = dbg!(p.get_bits(1));
+                let len_type_id = p.get_bits(1);
                 let mut sub_packets = Vec::new();
                 if len_type_id == 0 {
-                    let len_sub_packets: usize = dbg!(p.get_bits(15)) as usize;
-                    let prev_cursor = dbg!(p.cursor);
+                    let len_sub_packets: usize = p.get_bits(15) as usize;
+                    let prev_cursor = p.cursor;
                     loop {
-                        let (v, e) = dbg!(parse_packet(p));
+                        let (v, e) = parse_packet(p);
                         version_sum += v;
                         sub_packets.push(e);
-                        if dbg!(p.cursor - prev_cursor) >= dbg!(len_sub_packets) {
+                        if p.cursor - prev_cursor >= len_sub_packets {
                             break;
                         }
                     }
                 } else {
-                    let num_sub_packets = dbg!(p.get_bits(11));
+                    let num_sub_packets = p.get_bits(11);
                     for _ in 0..num_sub_packets {
-                        let (v, e) = dbg!(parse_packet(p));
+                        let (v, e) = parse_packet(p);
                         version_sum += v;
                         sub_packets.push(e);
                     }
@@ -132,7 +127,6 @@ mod day16 {
                 }
             }
         };
-        println!("********* end *********************");
         (version_sum, value)
     }
 
