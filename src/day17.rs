@@ -18,8 +18,8 @@ mod day17 {
         let mut y = 0;
         let mut max_y = 0;
         loop {
-            x = x + x_vel;
-            y = y + y_vel;
+            x += x_vel;
+            y += y_vel;
             max_y = cmp::max(max_y, y);
             if x >= target.0 .0 && x <= target.0 .1 && y <= target.1 .0 && y >= target.1 .1 {
                 return Some(max_y);

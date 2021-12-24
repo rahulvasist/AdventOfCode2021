@@ -205,7 +205,7 @@ mod day18 {
                 Symbol::Number(i) => print!("{}", i),
             }
         }
-        println!("");
+        println!();
         magnitude(&rv) as usize
     }
 

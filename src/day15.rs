@@ -23,7 +23,7 @@ mod day15 {
             for val in row {
                 print!("{} ", val);
             }
-            println!("");
+            println!();
         }
     }
 
@@ -79,7 +79,7 @@ mod day15 {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::BTreeSet;
+    
 
     use super::day15::*;
 

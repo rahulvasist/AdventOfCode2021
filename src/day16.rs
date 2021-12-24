@@ -46,7 +46,7 @@ mod day16 {
                     let end = start - n + 1;
                     let mask = (1 << n) - 1;
                     self.cursor += n;
-                    ((val >> end) & mask).into()
+                    (val >> end) & mask
                 }
                 _ => unreachable!(),
             }
